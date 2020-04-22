@@ -37,10 +37,24 @@ namespace RockWeb.Blocks.Core
     [Category( "Core" )]
     [Description( "Block for viewing a list of tags." )]
 
-    [BooleanField( "Show Qualifier Columns", "Should the 'Qualifier Column' and 'Qualifier Value' fields be displayed in the grid?", false, "", 0 )]
-    [LinkedPage( "Detail Page" )]
+    [BooleanField( "Show Qualifier Columns",
+        Description = "Should the 'Qualifier Column' and 'Qualifier Value' fields be displayed in the grid?",
+        DefaultValue = "false",
+        Category = "",
+        Order = 0,
+        Key = AttributeKey.ShowQualifierColumns )]
+
+    [LinkedPage( "Detail Page",
+        Key = AttributeKey.DetailPage )]
+
     public partial class TagList : RockBlock, ICustomGridColumns
     {
+        public static class AttributeKey
+        {
+            public const string ShowQualifierColumns = "ShowQualifierColumns";
+            public const string DetailPage = "DetailPage";
+        }
+
         #region Fields
 
         private bool _canConfigure = false;
@@ -123,7 +137,7 @@ namespace RockWeb.Blocks.Core
             parms.Add( "TagId", "0" );
             parms.Add( "CategoryId", cpCategory.SelectedValueAsId().ToString() );
             parms.Add( "EntityTypeId", rFilter.GetUserPreference( "EntityType" ).AsIntegerOrNull().ToString() );
-            NavigateToLinkedPage( "DetailPage", parms );
+            NavigateToLinkedPage( AttributeKey.DetailPage, parms );
         }
 
         /// <summary>
@@ -135,7 +149,7 @@ namespace RockWeb.Blocks.Core
         {
             var parms = new Dictionary<string, string>();
             parms.Add( "TagId", e.RowKeyValue.ToString() );
-            NavigateToLinkedPage( "DetailPage", parms );
+            NavigateToLinkedPage( AttributeKey.DetailPage, parms );
         }
 
         /// <summary>
@@ -207,7 +221,7 @@ namespace RockWeb.Blocks.Core
             {
                 case "Category":
                     var category = CategoryCache.Get( int.Parse( e.Value ) );
-                    e.Value = category != null ? category.Name : string.Empty;  
+                    e.Value = category != null ? category.Name : string.Empty;
                     break;
                 case "EntityType":
                     var entityType = EntityTypeCache.Get( int.Parse( e.Value ) );
@@ -244,8 +258,8 @@ namespace RockWeb.Blocks.Core
         {
             rFilter.SaveUserPreference( "Category", cpCategory.SelectedValue );
             rFilter.SaveUserPreference( "EntityType", ddlEntityType.SelectedValue );
-            rFilter.SaveUserPreference( "Scope", cblScope.SelectedValues.AsDelimited(",") );
-            rFilter.SaveUserPreference( "Owner", 
+            rFilter.SaveUserPreference( "Scope", cblScope.SelectedValues.AsDelimited( "," ) );
+            rFilter.SaveUserPreference( "Owner",
                 ( _canConfigure && cblScope.SelectedValues.Contains( "Personal" ) && ppOwner.PersonId.HasValue ) ?
                 ppOwner.PersonId.Value.ToString() : string.Empty );
 
@@ -296,13 +310,13 @@ namespace RockWeb.Blocks.Core
         private void BindGrid()
         {
             bool ordered = _canConfigure && !rFilter.GetUserPreference( "Scope" ).SplitDelimitedValues().ToList().Contains( "Personal" );
-            rGrid.ColumnsOfType<ReorderField>().First().Visible =  ordered;
+            rGrid.ColumnsOfType<ReorderField>().First().Visible = ordered;
 
-            bool showQualifierCols = GetAttributeValue( "ShowQualifierColumns" ).AsBoolean();
+            bool showQualifierCols = GetAttributeValue( AttributeKey.ShowQualifierColumns ).AsBoolean();
             rGrid.ColumnsOfType<RockBoundField>().Where( c => c.DataField.StartsWith( "EntityTypeQualifier" ) ).ToList().ForEach( c => c.Visible = showQualifierCols );
 
             var tags = GetTags( ordered );
-            if (tags != null)
+            if ( tags != null )
             {
                 rGrid.DataSource = tags.Select( t => new
                 {
@@ -366,15 +380,15 @@ namespace RockWeb.Blocks.Core
                 case "":
                     queryable = includeOrgs ?
                         queryable.Where( t => !t.OwnerPersonAliasId.HasValue ) :
-                        queryable; 
+                        queryable;
                     break;
-                    
+
                 // All people
                 case "0":
                     queryable = includeOrgs ?
                         queryable :
-                        queryable.Where( t => t.OwnerPersonAliasId.HasValue ); 
-                    break;    
+                        queryable.Where( t => t.OwnerPersonAliasId.HasValue );
+                    break;
 
                 // Specific Person
                 default:
@@ -382,7 +396,7 @@ namespace RockWeb.Blocks.Core
                     queryable = includeOrgs ?
                         queryable.Where( t => t.OwnerPersonAlias == null || t.OwnerPersonAlias.PersonId == personId ) :
                         queryable.Where( t => t.OwnerPersonAlias != null && t.OwnerPersonAlias.PersonId == personId );
-                    break;    
+                    break;
             }
 
             rGrid.ColumnsOfType<ReorderField>().First().Visible = _canConfigure && includeOrgs && personFlag == string.Empty;
@@ -399,5 +413,5 @@ namespace RockWeb.Blocks.Core
 
         #endregion
 
-}
+    }
 }
