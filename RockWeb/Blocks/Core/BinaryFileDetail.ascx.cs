@@ -46,7 +46,7 @@ namespace RockWeb.Blocks.Core
         Order = 0,
         Key = AttributeKey.EditLabelPage )]
 
-    [WorkflowTypeField( AttributeKey.Workflow,
+    [WorkflowTypeField( "Workflow",
         Description = "An optional workflow to activate for any new file uploaded",
         AllowMultiple = false,
         IsRequired = false,

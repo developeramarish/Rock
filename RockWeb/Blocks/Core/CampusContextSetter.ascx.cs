@@ -91,7 +91,7 @@ namespace RockWeb.Blocks.Core
         Order = 7,
         Key = AttributeKey.DefaultToCurrentUser )]
 
-    [CustomDropdownListField( AttributeKey.Alignment,
+    [CustomDropdownListField( "Alignment",
         Description = "Determines the alignment of the dropdown.",
         ListSource = "1^Left,2^Right",
         IsRequired = true,

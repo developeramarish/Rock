@@ -41,7 +41,7 @@ namespace RockWeb.Blocks.Core
     [Category( "Core" )]
     [Description( "Allows for the managing of attributes." )]
 
-    [EntityTypeField( AttributeKey.Entity,
+    [EntityTypeField( "Entity",
         Description = "Entity Name",
         IsRequired = false,
         Category = "Applies To",
