@@ -36,12 +36,14 @@ namespace RockWeb.Blocks.Core
     [LinkedPage( "Detail Page",
         Key = AttributeKey.DetailPage )]
 
-    [BinaryFileTypeField]
+    [BinaryFileTypeField( "Binary File Type",
+        Key = AttributeKey.BinaryFileType)]
     public partial class BinaryFileList : RockBlock, ICustomGridColumns
     {
         public static class AttributeKey
         {
             public const string DetailPage = "DetailPage";
+            public const string BinaryFileType = "BinaryFileType";
         }
 
         private BinaryFileType binaryFileType = null;
@@ -57,7 +59,7 @@ namespace RockWeb.Blocks.Core
             base.OnInit( e );
 
             Guid binaryFileTypeGuid = Guid.NewGuid();
-            if ( Guid.TryParse( GetAttributeValue( "BinaryFileType" ), out binaryFileTypeGuid ) )
+            if ( Guid.TryParse( GetAttributeValue( AttributeKey.BinaryFileType ), out binaryFileTypeGuid ) )
             {
                 var service = new BinaryFileTypeService( new RockContext() );
                 binaryFileType = service.Get( binaryFileTypeGuid );
