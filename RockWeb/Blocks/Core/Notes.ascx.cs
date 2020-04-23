@@ -37,7 +37,7 @@ namespace RockWeb.Blocks.Core
 
     [ContextAware]
 
-    [TextField( AttributeKey.Heading,
+    [TextField( "Heading",
         Description = "The text to display as the heading.  If left blank, the Note Type name will be used.",
         IsRequired = false,
         DefaultValue = "",

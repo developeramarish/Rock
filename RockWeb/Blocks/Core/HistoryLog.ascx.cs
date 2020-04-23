@@ -43,7 +43,7 @@ namespace RockWeb.Blocks.Core
 
     [ContextAware]
 
-    [TextField( AttributeKey.Heading,
+    [TextField( "Heading",
         Description = "The Lava template to use for the heading. <span class='tip tip-lava'></span>",
         IsRequired = false,
         DefaultValue = "{{ Entity.EntityStringValue }} (ID:{{ Entity.Id }})",
