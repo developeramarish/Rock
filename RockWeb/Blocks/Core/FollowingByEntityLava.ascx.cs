@@ -183,8 +183,8 @@ namespace RockWeb.Blocks.Core
 
                 mergeFields.Add( "FollowingItems", items.Take( quantity ) );
                 mergeFields.Add( "HasMore", hasMore );
-                mergeFields.Add( AttributeKey.EntityType, entityType.FriendlyName );
-                mergeFields.Add( AttributeKey.LinkUrl, GetAttributeValue( AttributeKey.LinkUrl ) );
+                mergeFields.Add( "EntityType", entityType.FriendlyName );
+                mergeFields.Add( "LinkUrl", GetAttributeValue( AttributeKey.LinkUrl ) );
                 mergeFields.Add( "Quantity", quantity );
 
                 string template = GetAttributeValue( AttributeKey.LavaTemplate );

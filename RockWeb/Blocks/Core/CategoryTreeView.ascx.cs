@@ -54,7 +54,7 @@ namespace RockWeb.Blocks.Core
     [TextField( "Entity type Qualifier Value",
         Description = "",
         IsRequired = false,
-        Key = AttributeKey.EntitytypeQualifierValue )]
+        Key = AttributeKey.EntityTypeQualifierValue )]
 
     [BooleanField( "Show Unnamed Entity Items",
         Description = "Set to false to hide any EntityType items that have a blank name.",
@@ -93,7 +93,7 @@ namespace RockWeb.Blocks.Core
             public const string EntityType = "EntityType";
             public const string EntityTypeFriendlyName = "EntityTypeFriendlyName";
             public const string EntityTypeQualifierProperty = "EntityTypeQualifierProperty";
-            public const string EntitytypeQualifierValue = "EntitytypeQualifierValue";
+            public const string EntityTypeQualifierValue = "EntitytypeQualifierValue";
             public const string ShowUnnamedEntityItems = "ShowUnnamedEntityItems";
             public const string PageParameterKey = "PageParameterKey";
             public const string DefaultIconCSSClass = "DefaultIconCSSClass";
@@ -229,7 +229,7 @@ namespace RockWeb.Blocks.Core
                     lAddItem.Text = entityTypeFriendlyName;
 
                     string entityTypeQualiferColumn = GetAttributeValue( AttributeKey.EntityTypeQualifierProperty );
-                    string entityTypeQualifierValue = GetAttributeValue( "EntityTypeQualifierValue" );
+                    string entityTypeQualifierValue = GetAttributeValue( AttributeKey.EntityTypeQualifierValue );
                     bool showUnnamedEntityItems = GetAttributeValue( AttributeKey.ShowUnnamedEntityItems ).AsBooleanOrNull() ?? true;
 
                     string parms = string.Format( "?getCategorizedItems=true&showUnnamedEntityItems={0}", showUnnamedEntityItems.ToTrueFalse().ToLower() );

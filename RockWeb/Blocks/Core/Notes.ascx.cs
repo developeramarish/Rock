@@ -251,7 +251,7 @@ namespace RockWeb.Blocks.Core
                     notesTimeline.NoteOptions = noteOptions;
                     notesTimeline.Title = GetAttributeValue( AttributeKey.Heading );
                     notesTimeline.TitleIconCssClass = GetAttributeValue( AttributeKey.HeadingIcon );
-                    notesTimeline.AllowAnonymousEntry = GetAttributeValue( "Allow Anonymous" ).AsBoolean();
+                    notesTimeline.AllowAnonymousEntry = GetAttributeValue( AttributeKey.AllowAnonymous ).AsBoolean();
                     notesTimeline.SortDirection = GetAttributeValue( AttributeKey.DisplayOrder ) == "Ascending" ? ListSortDirection.Ascending : ListSortDirection.Descending;
                 }
             }

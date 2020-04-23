@@ -41,7 +41,7 @@ namespace RockWeb.Blocks.Core
     [Category( "Core" )]
     [Description( "List of dates that schedules are not active for an entire category." )]
 
-    [CategoryField( AttributeKey.Category,
+    [CategoryField( "Category",
         Description = "Optional Category to use (if not specified, query will be determined by query string).",
         AllowMultiple = false,
         EntityTypeName = "Rock.Model.Schedule",
