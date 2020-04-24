@@ -3483,7 +3483,7 @@ namespace RockWeb.Blocks.Groups
             ddlWelcomeCommunication.Items.Clear();
             ddlExitCommunication.Items.Clear();
             cbCreateLoginDuringSync.Checked = false;
-            ipScheduleIntervalMinutes.IntervalInMinutes = 20;
+            ipScheduleIntervalMinutes.IntervalInMinutes = 12 * 60;
         }
 
         #endregion
